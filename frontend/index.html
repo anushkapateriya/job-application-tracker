@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Application Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Login and registration screen -->
+  <section id="auth-section" class="auth-container">
+    <div class="auth-card">
+      <h1>JobTrack</h1>
+      <p class="subtitle">Keep your job search organized.</p>
+
+      <div class="auth-tabs">
+        <button id="show-login" class="tab-button active">Login</button>
+        <button id="show-register" class="tab-button">Register</button>
+      </div>
+
+      <form id="login-form">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" required>
+
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" required>
+
+        <button type="submit" class="primary-button full-width">
+          Login
+        </button>
+      </form>
+
+      <form id="register-form" class="hidden">
+        <label for="register-name">Full name</label>
+        <input id="register-name" type="text" maxlength="100" required>
+
+        <label for="register-email">Email</label>
+        <input id="register-email" type="email" required>
+
+        <label for="register-password">Password</label>
+        <input id="register-password" type="password" minlength="8" required>
+
+        <button type="submit" class="primary-button full-width">
+          Create account
+        </button>
+      </form>
+
+      <p id="auth-message" class="message" role="status"></p>
+    </div>
+  </section>
+
+  <!-- Main application, shown after login -->
+  <div id="app-section" class="app-layout hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-icon">JT</span>
+        <span>JobTrack</span>
+      </div>
+
+      <p class="sidebar-label">MENU</p>
+
+      <nav>
+        <button class="nav-button active" data-page="dashboard-page">
+          <span>▦</span> Dashboard
+        </button>
+        <button class="nav-button" data-page="applications-page">
+          <span>▤</span> My Applications
+        </button>
+        <button class="nav-button" data-page="interviews-page">
+          <span>◷</span> Interviews
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <p class="small-text">Stay organized. Keep going!</p>
+        <button id="logout-button" class="logout-button">Log out</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="small-text">JOB APPLICATION TRACKER</p>
+          <h2 id="page-heading">Dashboard</h2>
+        </div>
+        <div class="user-info">
+          <span id="user-avatar" class="avatar">U</span>
+          <span id="user-name">User</span>
+        </div>
+      </header>
+
+      <p id="app-message" class="message" role="status"></p>
+
+      <!-- Dashboard page -->
+      <section id="dashboard-page" class="page-section">
+        <div class="welcome-section">
+          <div>
+            <h3>Welcome back! 👋</h3>
+            <p>Here's a quick look at your job search.</p>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <p>Total Applications</p>
+            <h3 id="stat-total">0</h3>
+            <span class="stat-note">Applications tracked</span>
+          </article>
+          <article class="stat-card">
+            <p>Applied</p>
+            <h3 id="stat-applied">0</h3>
+            <span class="stat-note">Waiting for a response</span>
+          </article>
+          <article class="stat-card">
+            <p>Interviews</p>
+            <h3 id="stat-interview">0</h3>
+            <span class="stat-note">Interview stage</span>
+          </article>
+          <article class="stat-card">
+            <p>Offers</p>
+            <h3 id="stat-offer">0</h3>
+            <span class="stat-note">Good news!</span>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <h3>Upcoming Interviews</h3>
+              <button class="text-button" data-go-page="interviews-page">
+                View all
+              </button>
+            </div>
+            <div id="dashboard-interviews" class="empty-state">
+              Loading interviews...
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <h3>Recent Applications</h3>
+              <button class="text-button" data-go-page="applications-page">
+                View all
+              </button>
+            </div>
+            <div id="dashboard-recent" class="empty-state">
+              Loading applications...
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Applications page -->
+      <section id="applications-page" class="page-section hidden">
+        <div class="section-intro">
+          <div>
+            <h3>My Applications</h3>
+            <p>Keep all your job opportunities in one place.</p>
+          </div>
+          <button id="add-application-button" class="primary-button">
+            + Add Application
+          </button>
+        </div>
+
+        <form id="application-form" class="panel form-panel hidden">
+          <h3 id="application-form-heading">Add Application</h3>
+          <input id="application-id" type="hidden">
+
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="company-name">Company name *</label>
+              <input id="company-name" maxlength="150" required>
+            </div>
+            <div class="form-field">
+              <label for="job-title">Job title *</label>
+              <input id="job-title" maxlength="150" required>
+            </div>
+            <div class="form-field">
+              <label for="job-url">Job URL</label>
+              <input id="job-url" type="url">
+            </div>
+            <div class="form-field">
+              <label for="application-status">Status</label>
+              <select id="application-status">
+                <option value="Applied">Applied</option>
+                <option value="Interview">Interview</option>
+                <option value="Offer">Offer</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="applied-at">Application date</label>
+              <input id="applied-at" type="date">
+            </div>
+            <div class="form-field full-span">
+              <label for="application-notes">Notes</label>
+              <textarea id="application-notes" rows="3" maxlength="5000"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-button">Save Application</button>
+            <button type="button" id="cancel-application-button" class="secondary-button">
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        <div class="panel">
+          <div class="search-row">
+            <div class="search-box">
+              <span>⌕</span>
+              <input
+                id="application-search"
+                type="search"
+                placeholder="Search company or job title..."
+              >
+            </div>
+            <button id="search-button" class="secondary-button">Search</button>
+          </div>
+
+          <div id="applications-list" class="table-container">
+            <p class="empty-state">Your applications will appear here.</p>
+          </div>
+
+          <div class="pagination">
+            <button id="previous-page" class="secondary-button" disabled>
+              ← Previous
+            </button>
+            <span id="page-info">Page 1 of 1</span>
+            <button id="next-page" class="secondary-button" disabled>
+              Next →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interviews page -->
+      <section id="interviews-page" class="page-section hidden">
+        <div class="section-intro">
+          <div>
+            <h3>Interviews</h3>
+            <p>Plan ahead and be ready for every opportunity.</p>
+          </div>
+          <button id="add-interview-button" class="primary-button">
+            + Schedule Interview
+          </button>
+        </div>
+
+        <form id="interview-form" class="panel form-panel hidden">
+          <h3 id="interview-form-heading">Schedule Interview</h3>
+          <input id="interview-id" type="hidden">
+
+          <div class="form-grid">
+            <div class="form-field full-span">
+              <label for="interview-application">Job application *</label>
+              <select id="interview-application" required>
+                <option value="">Select a job application</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="interview-date">Interview date and time *</label>
+              <input id="interview-date" type="datetime-local" required>
+            </div>
+            <div class="form-field">
+              <label for="interview-type">Interview type</label>
+              <select id="interview-type">
+                <option value="online">Online</option>
+                <option value="phone">Phone</option>
+                <option value="in-person">In-person</option>
+              </select>
+            </div>
+            <div class="form-field full-span">
+              <label for="interview-notes">Notes</label>
+              <textarea id="interview-notes" rows="3" maxlength="5000"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-button">Save Interview</button>
+            <button type="button" id="cancel-interview-button" class="secondary-button">
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        <div id="interviews-list" class="interviews-list">
+          <p class="empty-state">Your scheduled interviews will appear here.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
